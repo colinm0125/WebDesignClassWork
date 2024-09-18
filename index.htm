@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>First Bulma Example</title>
+    <title>Class Work Bulma Ex</title>
 
     <!-- Link to Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
@@ -98,6 +98,19 @@
                         <a href="#" class="card-footer-item">Edit</a>
                         <a href="#" class="card-footer-item">Delete</a>
                     </footer>
+                </div>
+                <div class="section bg-white" id="app">
+                    <div class="columns">
+                        <div class="column is-three-fifths">
+                            {{ message }}
+                            <ul class="shelf">
+                                <li v-for="product in products">
+                                    <h3>{{ product.name }}</h3>
+                                    <p>{{ product.price }}</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -258,10 +271,30 @@
                     </ul>
                 </ul>
             </aside>
-        </div>
 
+                    
         </div>
+        </div>
+        
     </div>
-
+</div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> 
+<script>
+    const { createApp, ref } = Vue
+  
+    createApp({ /*ViewModel*/
+      setup() {
+        const message = ref('Hello vue!')
+        const products = ref([
+          { name: 'Apple', price: 1.25 },
+          { name: 'Banana', price: 0.5 },
+          { name: 'Cherry', price: 2.5 }
+        ])
+        return {
+          message, products
+        }
+      }
+    }).mount('#app')
+  </script>
 </body>
 </html>
