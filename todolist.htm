@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        bg-white {
+            background-color: whitesmoke;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: #aaa
+        }
+
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div id="app" class="container"
+            <h1 class="title">To Do List</h1>
+
+            <!--Add a new task-->
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input
+                    class="input"
+                    type="text"
+                    placeholder="Add a new task"
+                    v-model="newTask"
+                    @keyup.enter="addTask"
+                    >
+                </div>
+                <div class="control">
+                    <a class="button is-info" @click="addTask">Add Task</a>
+                </div>
+            </div>
+
+            <!--To Do List-->
+            <ul>
+                <li v-for="(task,index) in tasks" :key="index" class="is-flex">
+                    <label class="checkbox">
+                    
+                        <span :class="{completed: task.completed}">{{task.</span> @click="toggleTask(index)">
+                            {{task.name}}
+                        </span>
+                    </label>
+                    <button class=""delete is-pulled-right" @click="deleteTask(index)"></button>
+                </li>
+            </ul>
+    </section>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                newTask: '',
+                tasks: [
+                    {name: 'Learn Vue.js', completed: false},
+                    {name: 'Build a To Do List', completed: false},
+                    {name: 'Learn Vue Router', completed: false},
+                    {name: 'Learn Vuex', completed: false},
+                    {name: 'Build a Vue App', completed: false},
+                ]
+            },
+            methods: {
+                addTask() {
+                    if (this.newTask.trim() === '') {
+                        return;
+                    }
+                    this.tasks.push({
+                        name: this.newTask,
+                        completed: false
+                    });
+                    this.newTask = '';
+                },
+                toggleTask(index) {
+                    this.tasks[index].completed = !this.tasks[index].completed;
+                },
+                deleteTask(index) {
+                    this.tasks.splice(index, 1);
+                }
+            }
+        });
+
+        
+    </script>
+</body>
+</html>
