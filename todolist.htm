@@ -2,72 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
     <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
     >
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        bg-white {
+        .bg-white {
             background-color: whitesmoke;
         }
         .completed {
             text-decoration: line-through;
-            color: #aaa
+            color: #aaa;
         }
-
+        .task-list {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <section class="section">
-        <div id="app" class="container"
-            <h1 class="title">To Do List</h1>
+        <div id="app" class="container">
+            <h1 class="title has-text-centered">To Do List</h1>
 
-            <!--Add a new task-->
-            <div class="field has-addons">
-                <div class="control is-expanded">
-                    <input
-                    class="input"
-                    type="text"
-                    placeholder="Add a new task"
-                    v-model="newTask"
-                    @keyup.enter="addTask"
-                    >
-                </div>
-                <div class="control">
-                    <a class="button is-info" @click="addTask">Add Task</a>
+            <!-- Add a new task -->
+            <div class="box">
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <input
+                          class="input is-primary"
+                          type="text"
+                          placeholder="Add a new task"
+                          v-model="newTask"
+                          @keyup.enter="addTask"
+                        >
+                    </div>
+                    <div class="control">
+                        <a class="button is-info" @click="addTask">
+                            <span class="icon is-small">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span>Add Task</span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <!--To Do List-->
-            <ul>
-                <li v-for="(task,index) in tasks" :key="index" class="is-flex">
-                    <label class="checkbox">
-                    
-                        <span :class="{completed: task.completed}">{{task.</span> @click="toggleTask(index)">
-                            {{task.name}}
-                        </span>
-                    </label>
-                    <button class=""delete is-pulled-right" @click="deleteTask(index)"></button>
+            <!-- To Do List -->
+            <ul class="task-list">
+                <li v-for="(task, index) in tasks" :key="index" class="box is-flex is-justify-content-space-between is-align-items-center">
+                    <div>
+                        <label class="checkbox">
+                            <input type="checkbox" v-model="task.completed" @click="toggleTask(index)">
+                            <span :class="{completed: task.completed}" class="ml-2">{{ task.name }}</span>
+                        </label>
+                    </div>
+                    <button class="delete" @click="deleteTask(index)"></button>
                 </li>
             </ul>
+        </div>
     </section>
 
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-        new Vue({
-            el: '#app',
-            data: {
-                newTask: '',
-                tasks: [
-                    {name: 'Learn Vue.js', completed: false},
-                    {name: 'Build a To Do List', completed: false},
-                    {name: 'Learn Vue Router', completed: false},
-                    {name: 'Learn Vuex', completed: false},
-                    {name: 'Build a Vue App', completed: false},
-                ]
+        const app = Vue.createApp({
+            data() {
+                return {
+                    newTask: '',
+                    tasks: [
+                        { name: 'Learn Vue.js', completed: false },
+                        { name: 'Build a To Do List', completed: false },
+                        { name: 'Learn Vue Router', completed: false },
+                        { name: 'Learn Vuex', completed: false },
+                        { name: 'Build a Vue App', completed: false },
+                    ]
+                };
             },
             methods: {
                 addTask() {
@@ -89,7 +100,7 @@
             }
         });
 
-        
+        app.mount('#app');
     </script>
 </body>
 </html>
